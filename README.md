@@ -85,6 +85,8 @@ In the root of your project, create a .env.local file and add your API credentia
 GIPHY_API_KEY=yourGiphyApiKey
 IMGFLIP_USERNAME=yourImgflipUsername
 IMGFLIP_PASSWORD=yourImgflipPassword
+GITHUB_ID=yourGithubOauthClentId
+GITHUB_SECRET=yourGithubOauthClientSecret
 ```
 
 ### 4. Run the Development Server
