@@ -12,7 +12,6 @@ interface RedditPostData {
   title: string;
   url: string;
   ups: number;
-  permalink: string;
   post_hint?: string;
   preview?: {
     images: {
@@ -35,17 +34,16 @@ interface Meme {
   url: string;
   title: string;
   ups: number;
-  permalink: string;
 }
 
-export default function TrendingPage() {
+export default function LatestPage() {
   const [memes, setMemes] = useState<Meme[]>([]);
   const [after, setAfter] = useState<string | null>(null);
   const loaderRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   const fetchMemes = async () => {
-    const url = `https://www.reddit.com/r/memes/hot.json?limit=20${
+    const url = `https://www.reddit.com/r/memes/new.json?limit=20${
       after ? `&after=${after}` : ""
     }`;
     const res = await axios.get<RedditApiResponse>(url);
@@ -59,7 +57,6 @@ export default function TrendingPage() {
         url: post.url,
         title: post.title,
         ups: post.ups,
-        permalink: post.permalink,
       }));
 
     setMemes((prev) => [...prev, ...filteredMemes]);
@@ -109,7 +106,7 @@ export default function TrendingPage() {
       </div>
 
       <div className="flex-1 w-full flex justify-center overflow-hidden">
-        <div className="w-full max-w-[750px] px-4 space-y-6 overflow-y-auto py-4">
+        <div className="w-full max-w-[750px] px-4 space-y-4 overflow-y-auto py-4">
           {memes.map((meme) => (
             <div
               key={meme.id}
